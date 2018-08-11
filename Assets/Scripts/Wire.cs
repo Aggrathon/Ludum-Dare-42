@@ -24,7 +24,6 @@ public class Wire : ACircuitComponent
 
 	public override void PostTick()
 	{
-		print("No Prev " + power + " " + oldpower);
 		if (oldpower)
 		{
 			lr.startColor = onColor;

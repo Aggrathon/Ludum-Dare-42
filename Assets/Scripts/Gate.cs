@@ -43,47 +43,37 @@ public class Gate : ACircuitComponent
 	public override void Tick()
 	{
 		CircuitTile t;
+		if (gateType == ComponentType.Not)
+		{
+			if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 2), out t) && t.obj != null)
+				nextPower = !t.obj.isOn();
+			else
+				nextPower = true;
+			return;
+		}
+		bool first = false;
+		bool second = false;
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
+			first = t.obj.isOn();
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 3), out t) && t.obj != null)
+			second = t.obj.isOn();
 		switch (gateType)
 		{
-			case ComponentType.Not:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 2), out t) && t.obj != null)
-				{
-					nextPower = !t.obj.isOn();
-				}
-				else
-				{
-					nextPower = true;
-				}
-				break;
 			case ComponentType.And:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn();
-				if (nextPower && circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation - 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn();
+				nextPower = first & second;
 				break;
 			case ComponentType.Or:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn();
-				if (!nextPower && circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation - 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn();
+				nextPower = first | second;
 				break;
 			case ComponentType.Nor:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-					nextPower = !t.obj.isOn();
-				if (nextPower && circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation - 1), out t) && t.obj != null)
-					nextPower = !t.obj.isOn();
+				nextPower = !(first | second);
 				break;
 			case ComponentType.Nand:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-					nextPower = !t.obj.isOn();
-				if (!nextPower && circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation - 1), out t) && t.obj != null)
-					nextPower = !t.obj.isOn();
+				nextPower = !(first & second);
 				break;
 			case ComponentType.Xor:
-				if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn();
-				if (nextPower && circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation - 1), out t) && t.obj != null)
-					nextPower = t.obj.isOn() != nextPower;
+				Debug.Log(first + " ^ " + second + " = " + (first ^ second));
+				nextPower = first ^ second;
 				break;
 		}
 	}

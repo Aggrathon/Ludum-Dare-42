@@ -1977,16 +1977,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad4d509f44105434db706e2cfe28ec42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tickRate: 1
   outline: {fileID: 169985931}
   title: {fileID: 1355451015}
   camera: {fileID: 519420031}
   wirePrefab: {fileID: 1029527683357016, guid: e50eb272b39a4a34986cc35791bd6299, type: 2}
   notPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16, type: 2}
-  andPrefab: {fileID: 0}
-  orPrefab: {fileID: 0}
-  norPrefab: {fileID: 0}
-  nandPrefab: {fileID: 0}
-  xorPrefab: {fileID: 0}
+  andPrefab: {fileID: 1945728527486298, guid: f822404137c38c344a69a62819e4d7dc, type: 2}
+  orPrefab: {fileID: 1945728527486298, guid: 2c251ff6761823c40b7079099ad2d5c6, type: 2}
+  norPrefab: {fileID: 1945728527486298, guid: 82e131fe11c67144fa4bdce414502d0f, type: 2}
+  nandPrefab: {fileID: 1945728527486298, guid: 899cabc8e83069143842db668499b790, type: 2}
+  xorPrefab: {fileID: 1945728527486298, guid: a1785d633e29bbb4aae934b12eeccaf8, type: 2}
   inputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
     type: 2}
   outputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
@@ -2728,19 +2729,19 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: ce2545373ef2d6e4882e3da1875cfbe6, type: 3}
     component: 1
   - name: And Gate
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: f10e4f3ddeca2954bb805ca51facb835, type: 3}
     component: 2
   - name: Or Gate
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: a5dfce2158e94dc4cb9f0a00c639de3a, type: 3}
     component: 3
   - name: Nor Gate
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 4b389828aedc38e4fbe9fcf5a9312ffa, type: 3}
     component: 4
   - name: Nand Gate
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 0ea4f2dd09ed3cf43997d5693797f09f, type: 3}
     component: 5
   - name: Xor Gate
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: d41132c124e24d94095e7cde962bd6be, type: 3}
     component: 6
   - name: Bridge
     icon: {fileID: 0}
