@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine;
 
 public class Circuit : MonoBehaviour {
+	public float tickRate = 1.0f;
 	[Header("Objects")]
 	[SerializeField] SpriteRenderer outline;
 	[SerializeField] TextMeshProUGUI title;
@@ -13,10 +14,19 @@ public class Circuit : MonoBehaviour {
 #pragma warning restore CS0108 // Member hides inherited member; missing new keyword
 	[Header("Prefabs")]
 	[SerializeField] GameObject wirePrefab;
-
+	[SerializeField] GameObject notPrefab;
+	[SerializeField] GameObject andPrefab;
+	[SerializeField] GameObject orPrefab;
+	[SerializeField] GameObject norPrefab;
+	[SerializeField] GameObject nandPrefab;
+	[SerializeField] GameObject xorPrefab;
+	[SerializeField] GameObject inputPrefab;
+	[SerializeField] GameObject outputPrefab;
+	
 	private CircuitTile[] circuit;
 	private Map map;
 	private bool dirty = true;
+	private float cd;
 
 	public void Setup(Map map)
 	{
@@ -58,6 +68,7 @@ public class Circuit : MonoBehaviour {
 		title.text = map.title;
 		title.transform.parent.position = new Vector3(0, map.height/2, 0);
 		dirty = true;
+		cd = 0;
 	}
 
 	void DrawOutline()
@@ -149,6 +160,17 @@ public class Circuit : MonoBehaviour {
 		dirty = true;
 	}
 
+	public void BuildComponent(ComponentType ct, IntVector a)
+	{
+		int index = LocalToIndex(a);
+		if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
+		{
+			circuit[index].component = ct;
+			circuit[index].rotation = 0;
+		}
+		dirty = true;
+	}
+
 	public IntVector WorldToLocal(Vector3 a, bool limit = false)
 	{
 		var pos = new IntVector(Mathf.RoundToInt(a.x + (float)(map.width-1) * 0.5f), Mathf.RoundToInt(a.y + (float)(map.height-1) * 0.5f));
@@ -172,6 +194,8 @@ public class Circuit : MonoBehaviour {
 
 	int LocalToIndex(IntVector a)
 	{
+		if (!CheckLocalBounds(a))
+			Debug.LogError("IntVector out of bounds (LocalToIndex)");
 		return a.y * map.width + a.x;
 	}
 
@@ -192,23 +216,31 @@ public class Circuit : MonoBehaviour {
 				switch (circuit[i].component)
 				{
 					case ComponentType.Wire:
-						ObjectPool.Spawn(wirePrefab, circuit[i].position).GetComponent<Wire>().Setup(this, circuit[i].localPosition);
+						ObjectPool.Spawn(wirePrefab, circuit[i].position).GetComponent<Wire>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Not:
+						ObjectPool.Spawn(notPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.And:
+						ObjectPool.Spawn(andPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Or:
+						ObjectPool.Spawn(orPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Nor:
+						ObjectPool.Spawn(norPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Nand:
+						ObjectPool.Spawn(nandPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Xor:
+						ObjectPool.Spawn(xorPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Input:
+						ObjectPool.Spawn(inputPrefab, circuit[i].position).GetComponent<ACircuitComponent>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Output:
+						ObjectPool.Spawn(outputPrefab, circuit[i].position).GetComponent<ACircuitComponent>().Setup(this, circuit[i]);
 						break;
 				}
 			}
@@ -221,6 +253,9 @@ public class Circuit : MonoBehaviour {
 		{
 			RecreateCircuit();
 			dirty = false;
+		}
+		if (cd - Time.time < 0)
+		{
 			for (int i = 0; i < circuit.Length; i++)
 			{
 				if (circuit[i].obj != null)
@@ -236,6 +271,7 @@ public class Circuit : MonoBehaviour {
 				if (circuit[i].obj != null)
 					circuit[i].obj.PostTick();
 			}
+			cd = Time.time + tickRate;
 		}
 	}
 }
@@ -244,6 +280,7 @@ public class Circuit : MonoBehaviour {
 public class CircuitTile
 {
 	public IntVector localPosition;
+	public int rotation;
 	public Vector3 position;
 	public int index;
 	public ComponentType component;
@@ -266,6 +303,21 @@ public struct IntVector
 	{
 		return x + " " + y;
 	}
+
+	public IntVector RotatedStep(int rotation)
+	{
+		switch ((rotation % 4 + 4) % 4)
+		{
+			case 1:
+				return new IntVector(x, y + 1);
+			case 2:
+				return new IntVector(x - 1, y);
+			case 3:
+				return new IntVector(x, y - 1);
+			default:
+				return new IntVector(x + 1, y);
+		}
+	}
 }
 
 public enum ComponentType
@@ -277,6 +329,7 @@ public enum ComponentType
 	Nor,
 	Nand,
 	Xor,
+	Bridge,
 	Empty,
 	Unbuildable,
 	Input,

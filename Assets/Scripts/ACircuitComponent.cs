@@ -7,6 +7,6 @@ public abstract class ACircuitComponent : MonoBehaviour
 	public abstract void Tick();
 	public abstract void PostTick();
 	public abstract bool isOn();
-	public abstract void Setup(Circuit circuit, IntVector pos);
+	public abstract void Setup(Circuit circuit, CircuitTile tile);
 	public abstract void TrySetOn();
 }

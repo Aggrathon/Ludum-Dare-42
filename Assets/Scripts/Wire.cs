@@ -10,6 +10,7 @@ public class Wire : ACircuitComponent
 	LineRenderer lr;
 	List<Vector3> points;
 	bool power;
+	bool oldpower;
 
 	private void Awake()
 	{
@@ -23,16 +24,18 @@ public class Wire : ACircuitComponent
 
 	public override void PostTick()
 	{
-		if (power)
+		print("No Prev " + power + " " + oldpower);
+		if (oldpower)
 		{
 			lr.startColor = onColor;
 			lr.endColor = onColor;
-			power = false;
 		}
+		else
 		{
 			lr.startColor = offColor;
 			lr.endColor = offColor;
 		}
+		power = false;
 	}
 
 	public override void PreTick()
@@ -41,6 +44,7 @@ public class Wire : ACircuitComponent
 
 	public override void Tick()
 	{
+		oldpower = power;
 	}
 
 	public override void TrySetOn()
@@ -48,15 +52,15 @@ public class Wire : ACircuitComponent
 		power = true;
 	}
 
-	public override void Setup(Circuit circuit, IntVector pos)
+	public override void Setup(Circuit circuit, CircuitTile tile)
 	{
 		power = false;
+		oldpower = false;
 		if (points == null)
 			points = new List<Vector3>();
 		else
 			points.Clear();
-		CircuitTile tile;
-		if (!circuit.GetTileAt(pos, out tile) || tile.obj != null || tile.component != ComponentType.Wire)
+		if (tile.obj != null || tile.component != ComponentType.Wire)
 		{
 			gameObject.SetActive(false);
 			return;
@@ -91,10 +95,10 @@ public class Wire : ACircuitComponent
 					{
 						tile.obj = this;
 						points.Add(tile.position);
-						Recurse(circuit, new IntVector(tile.localPosition.x + 1, tile.localPosition.y), tile.position);
-						Recurse(circuit, new IntVector(tile.localPosition.x - 1, tile.localPosition.y), tile.position);
 						Recurse(circuit, new IntVector(tile.localPosition.x, tile.localPosition.y + 1), tile.position);
 						Recurse(circuit, new IntVector(tile.localPosition.x, tile.localPosition.y - 1), tile.position);
+						Recurse(circuit, new IntVector(tile.localPosition.x + 1, tile.localPosition.y), tile.position);
+						Recurse(circuit, new IntVector(tile.localPosition.x - 1, tile.localPosition.y), tile.position);
 						points.Add(prev);
 					}
 					break;

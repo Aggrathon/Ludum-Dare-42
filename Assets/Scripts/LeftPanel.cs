@@ -8,7 +8,7 @@ public class LeftPanel : MonoBehaviour {
 
 	public GameObject[] collapsedObjects;
 	public GameObject[] uncollapsedObjects;
-	public Button[] buildButtons;
+	public Transform buildButtons;
 
 	public float collapsedSize;
 	public float uncollapsedSize;
@@ -45,10 +45,10 @@ public class LeftPanel : MonoBehaviour {
 
 	public void SetBuildType(int cpt)
 	{
-		mm.SetComponentToBuild((ComponentType)cpt);
-		for (int i = 0; i < buildButtons.Length; i++)
+		mm.SetComponentToBuild(mm.previews[cpt].component);
+		for (int i = 0; i < buildButtons.childCount; i++)
 		{
-			buildButtons[i].interactable = i != cpt;
+			buildButtons.GetChild(i).GetComponent<Button>().interactable = i != cpt;
 		}
 	}
 
@@ -65,5 +65,16 @@ public class LeftPanel : MonoBehaviour {
 		levelSelect.options = list;
 		levelSelect.onValueChanged.AddListener(gp.LoadLevel);
 		mm = FindObjectOfType<MouseManager>();
+		for (int i = buildButtons.childCount; i < mm.previews.Length; i++)
+		{
+			Instantiate(buildButtons.GetChild(0), buildButtons);
+		}
+		for (int i = 0; i < mm.previews.Length; i++)
+		{
+			int j = i;
+			buildButtons.GetChild(i).GetComponent<Button>().onClick.AddListener(() => SetBuildType(j));
+			buildButtons.GetChild(i).GetChild(1).GetComponent<Image>().sprite = mm.previews[i].icon;
+			buildButtons.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = mm.previews[i].name;
+		}
 	}
 }

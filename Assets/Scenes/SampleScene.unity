@@ -160,7 +160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1409,8 +1409,7 @@ MonoBehaviour:
   uncollapsedObjects:
   - {fileID: 145900240}
   - {fileID: 962034296}
-  buildButtons:
-  - {fileID: 1544693186}
+  buildButtons: {fileID: 2110793086}
   collapsedSize: 62
   uncollapsedSize: 200
   levelSelect: {fileID: 2125193120}
@@ -1982,6 +1981,16 @@ MonoBehaviour:
   title: {fileID: 1355451015}
   camera: {fileID: 519420031}
   wirePrefab: {fileID: 1029527683357016, guid: e50eb272b39a4a34986cc35791bd6299, type: 2}
+  notPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16, type: 2}
+  andPrefab: {fileID: 0}
+  orPrefab: {fileID: 0}
+  norPrefab: {fileID: 0}
+  nandPrefab: {fileID: 0}
+  xorPrefab: {fileID: 0}
+  inputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
+    type: 2}
+  outputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
+    type: 2}
 --- !u!4 &1110776283
 Transform:
   m_ObjectHideFlags: 0
@@ -2642,18 +2651,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1544693187}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 704402973}
-        m_MethodName: SetBuildType
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1544693187
@@ -2722,6 +2720,43 @@ MonoBehaviour:
   deletionMarker: {fileID: 516766157}
   wireMarker: {fileID: 414662133}
   ghostMarker: {fileID: 588005716}
+  previews:
+  - name: Wire
+    icon: {fileID: 21300000, guid: dfbd027e118cf9b4cbccf32548b65598, type: 3}
+    component: 0
+  - name: Not Gate
+    icon: {fileID: 21300000, guid: ce2545373ef2d6e4882e3da1875cfbe6, type: 3}
+    component: 1
+  - name: And Gate
+    icon: {fileID: 0}
+    component: 2
+  - name: Or Gate
+    icon: {fileID: 0}
+    component: 3
+  - name: Nor Gate
+    icon: {fileID: 0}
+    component: 4
+  - name: Nand Gate
+    icon: {fileID: 0}
+    component: 5
+  - name: Xor Gate
+    icon: {fileID: 0}
+    component: 6
+  - name: Bridge
+    icon: {fileID: 0}
+    component: 7
+  - name: Empty
+    icon: {fileID: 0}
+    component: 8
+  - name: Unbuildable
+    icon: {fileID: 0}
+    component: 9
+  - name: Input
+    icon: {fileID: 0}
+    component: 10
+  - name: Output
+    icon: {fileID: 0}
+    component: 11
 --- !u!4 &1787398321
 Transform:
   m_ObjectHideFlags: 0

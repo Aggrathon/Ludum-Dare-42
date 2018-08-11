@@ -12,9 +12,19 @@ public class MouseManager : MonoBehaviour {
 		destroy
 	}
 
+	[System.Serializable]
+	public struct ComponentPreview
+	{
+		public string name;
+		public Sprite icon;
+		public ComponentType component;
+	}
+
 	public LineRenderer deletionMarker;
 	public LineRenderer wireMarker;
 	public SpriteRenderer ghostMarker;
+
+	public ComponentPreview[] previews;
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 	Camera camera;
@@ -54,7 +64,24 @@ public class MouseManager : MonoBehaviour {
 			{
 				isDragging = true;
 				if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
+				{
 					drag = DragType.build;
+					if (build != ComponentType.Wire)
+					{
+						ghostMarker.gameObject.SetActive(true);
+						for (int i = 0; i < previews.Length; i++)
+							if (previews[i].component == build)
+							{
+								ghostMarker.sprite = previews[i].icon;
+								break;
+							}
+
+					}
+					else
+					{
+						wireMarker.gameObject.SetActive(true);
+					}
+				}
 				else
 					drag = DragType.move;
 			}
@@ -66,6 +93,7 @@ public class MouseManager : MonoBehaviour {
 			isDragging = true;
 			startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition));
 			drag = DragType.destroy;
+			deletionMarker.gameObject.SetActive(true);
 		}
 		if (isDragging)
 		{
@@ -111,7 +139,19 @@ public class MouseManager : MonoBehaviour {
 			{
 				wireMarker.SetPosition(0, circuit.LocalToWorld(start));
 				wireMarker.SetPosition(1, circuit.LocalToWorld(end));
-				wireMarker.gameObject.SetActive(true);
+			}
+		}
+		else
+		{
+			if (Input.GetMouseButtonUp(0))
+			{
+				ghostMarker.gameObject.SetActive(false);
+				isDragging = false;
+				circuit.BuildComponent(build, endPos);
+			}
+			else
+			{
+				ghostMarker.transform.position = circuit.LocalToWorld(endPos);
 			}
 		}
 	}
@@ -143,7 +183,6 @@ public class MouseManager : MonoBehaviour {
 			deletionMarker.SetPosition(6, new Vector3(bot.x, top.y));
 			deletionMarker.SetPosition(7, new Vector3(bot.x, bot.y));
 			deletionMarker.SetPosition(8, new Vector3(top.x, top.y));
-			deletionMarker.gameObject.SetActive(true);
 		}
 	}
 
