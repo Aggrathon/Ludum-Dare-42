@@ -14,4 +14,8 @@ public class GameProgression : MonoBehaviour {
 	}
 	
 
+	public void LoadLevel(int index)
+	{
+		circuit.Setup(maps[index]);
+	}
 }
