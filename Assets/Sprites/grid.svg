@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="256mm"
+   height="256mm"
+   viewBox="0 0 256 256"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.3 (2405546, 2018-03-11)"
+   sodipodi:docname="grid.svg"
+   inkscape:export-filename="D:\Anton\Data\Game Making\Unity\Ludum Dare\Ludum Dare 42\Assets\Sprites\grid.png"
+   inkscape:export-xdpi="25.4"
+   inkscape:export-ydpi="25.4">
+  <defs
+     id="defs2" />
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="0.35"
+     inkscape:cx="277.43939"
+     inkscape:cy="393.63052"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:pagecheckerboard="true"
+     inkscape:window-width="1858"
+     inkscape:window-height="1057"
+     inkscape:window-x="1334"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-41)">
+    <path
+       inkscape:tile-h="1.9999999"
+       inkscape:tile-w="255.99999"
+       inkscape:tile-cy="0"
+       inkscape:tile-cx="128"
+       style="fill:none;fill-opacity:1;stroke:#ffffff;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="M 0,297 H 256"
+       id="path3259"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cc"
+       inkscape:tile-x0="0"
+       inkscape:tile-y0="-0.99999997" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3259"
+       id="use3311"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3311"
+       id="use3313"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3313"
+       id="use3315"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3315"
+       id="use3317"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3317"
+       id="use3319"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3319"
+       id="use3321"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3321"
+       id="use3323"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3323"
+       id="use3325"
+       width="100%"
+       height="100%"
+       transform="translate(0,-32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#path3259"
+       id="use3327"
+       width="100%"
+       height="100%"
+       transform="rotate(90,128,169)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3327"
+       id="use3329"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3329"
+       id="use3331"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3331"
+       id="use3333"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3333"
+       id="use3335"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3335"
+       id="use3337"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3337"
+       id="use3339"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3339"
+       id="use3341"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+    <use
+       x="0"
+       y="0"
+       xlink:href="#use3341"
+       id="use3343"
+       width="100%"
+       height="100%"
+       transform="translate(32)" />
+  </g>
+</svg>

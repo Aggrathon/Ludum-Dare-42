@@ -12,10 +12,12 @@ public class MapEditor : Editor
 		if (GUILayout.Button("Reset"))
 		{
 			(target as Map).Reset();
+			tex = null;
 		}
 		if (EditorApplication.isPlaying && GUILayout.Button("Get Current"))
 		{
 			(target as Map).CopyCurrent();
+			tex = null;
 		}
 		if (GUILayout.Button("Redraw"))
 		{
@@ -33,9 +35,10 @@ public class MapEditor : Editor
 		Map map = (Map)target;
 		tex = new Texture2D(map.width, map.height);
 		var colors = tex.GetPixels();
+		var layout = map.map;
 		for (int i = 0; i < map.map.Length; i++)
 		{
-			switch (map.map[i])
+			switch (layout[i])
 			{
 				case 1:
 					colors[i] = Color.black;
