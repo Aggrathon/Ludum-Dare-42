@@ -100,6 +100,39 @@ public class Circuit : MonoBehaviour {
 	{
 		return circuit;
 	}
+
+	public bool GetTileAt(Vector3 pos, out CircuitTile tile)
+	{
+		int x = Mathf.RoundToInt(pos.x + (float)map.width * 0.5f);
+		int y = Mathf.RoundToInt(pos.y + (float)map.height * 0.5f);
+		if (x < 0 || x >= map.width || y < 0 || y >= map.height)
+		{
+			tile = new CircuitTile() { unbuildable = true };
+			return false;
+		}
+		tile = circuit[y * map.width + x];
+		return true;
+	}
+
+	public void DeleteArea(Vector3 a, Vector3 b)
+	{
+		a.x += (float)map.width * 0.5f;
+		b.x += (float)map.width * 0.5f;
+		a.y += (float)map.height * 0.5f;
+		b.y += (float)map.height * 0.5f;
+		int minx = Mathf.Min(map.width-1, Mathf.CeilToInt(Mathf.Min(a.x, b.x)));
+		int maxx = Mathf.Max(0, Mathf.CeilToInt(Mathf.Max(a.x, b.x)));
+		int miny = Mathf.Min(map.height - 1, Mathf.FloorToInt(Mathf.Min(a.y, b.y)));
+		int maxy = Mathf.Max(0, Mathf.FloorToInt(Mathf.Max(a.y, b.y)));
+		for (int j = miny; j <= maxy; j++)
+		{
+			for (int i = minx; i <= maxx; i++)
+			{
+				circuit[j * map.width + i].component.SetActive(false);
+				circuit[j * map.width + i].component = null;
+			}
+		}
+	}
 }
 
 [Serializable]
@@ -110,4 +143,5 @@ public struct CircuitTile
 	public bool unbuildable;
 	public int inputIndex;
 	public int outputIndex;
+	public GameObject component;
 }
