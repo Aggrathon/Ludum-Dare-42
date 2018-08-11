@@ -83,7 +83,17 @@ public class MouseManager : MonoBehaviour {
 					}
 				}
 				else
+				{
 					drag = DragType.move;
+					ghostMarker.gameObject.SetActive(true);
+					for (int i = 0; i < previews.Length; i++)
+						if (previews[i].component == tile.component)
+						{
+							ghostMarker.sprite = previews[i].icon;
+							ghostMarker.transform.rotation = Quaternion.Euler(0, 0, tile.rotation * 90);
+							break;
+						}
+				}
 			}
 		}
 		else if (Input.GetMouseButtonDown(1))
@@ -158,7 +168,18 @@ public class MouseManager : MonoBehaviour {
 
 	void DragMove()
 	{
-
+		IntVector endPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
+		if (Input.GetMouseButtonUp(0))
+		{
+			ghostMarker.gameObject.SetActive(false);
+			isDragging = false;
+			circuit.MoveComponent(startPos, endPos);
+			ghostMarker.transform.rotation = Quaternion.identity;
+		}
+		else
+		{
+			ghostMarker.transform.position = circuit.LocalToWorld(endPos);
+		}
 	}
 
 	void DragDelete()

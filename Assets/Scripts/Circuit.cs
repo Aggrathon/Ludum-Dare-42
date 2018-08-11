@@ -171,6 +171,37 @@ public class Circuit : MonoBehaviour {
 		dirty = true;
 	}
 
+	public void MoveComponent(IntVector a, IntVector b)
+	{
+		if (a.x == b.x && a.y == b.y)
+		{
+			circuit[LocalToIndex(a)].rotation++;
+			dirty = true;
+		}
+		else
+		{
+			var source = circuit[LocalToIndex(a)];
+			var target = circuit[LocalToIndex(b)];
+			switch (source.component)
+			{
+				case ComponentType.Wire:
+				case ComponentType.Empty:
+				case ComponentType.Unbuildable:
+				case ComponentType.Input:
+				case ComponentType.Output:
+					return;
+			}
+			if (target.component == ComponentType.Empty || target.component == ComponentType.Wire)
+			{
+				target.component = source.component;
+				source.component = ComponentType.Empty;
+				target.index = source.index;
+				target.rotation = source.rotation;
+				dirty = true;
+			}
+		}
+	}
+
 	public IntVector WorldToLocal(Vector3 a, bool limit = false)
 	{
 		var pos = new IntVector(Mathf.RoundToInt(a.x + (float)(map.width-1) * 0.5f), Mathf.RoundToInt(a.y + (float)(map.height-1) * 0.5f));

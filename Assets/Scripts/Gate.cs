@@ -72,7 +72,6 @@ public class Gate : ACircuitComponent
 				nextPower = !(first & second);
 				break;
 			case ComponentType.Xor:
-				Debug.Log(first + " ^ " + second + " = " + (first ^ second));
 				nextPower = first ^ second;
 				break;
 		}
