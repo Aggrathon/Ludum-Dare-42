@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LeftPanel : MonoBehaviour {
 
 	public GameObject[] collapsedObjects;
 	public GameObject[] uncollapsedObjects;
+	public Button[] buildButtons;
 
 	public float collapsedSize;
 	public float uncollapsedSize;
 
 	public TMP_Dropdown levelSelect;
+
+	MouseManager mm;
 
 	public void Collapse()
 	{
@@ -39,6 +43,15 @@ public class LeftPanel : MonoBehaviour {
 		(transform.GetChild(0) as RectTransform).SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, uncollapsedSize);
 	}
 
+	public void SetBuildType(int cpt)
+	{
+		mm.SetComponentToBuild((ComponentType)cpt);
+		for (int i = 0; i < buildButtons.Length; i++)
+		{
+			buildButtons[i].interactable = i != cpt;
+		}
+	}
+
 	private void Start()
 	{
 		Uncollapse();
@@ -51,5 +64,6 @@ public class LeftPanel : MonoBehaviour {
 		}
 		levelSelect.options = list;
 		levelSelect.onValueChanged.AddListener(gp.LoadLevel);
+		mm = FindObjectOfType<MouseManager>();
 	}
 }

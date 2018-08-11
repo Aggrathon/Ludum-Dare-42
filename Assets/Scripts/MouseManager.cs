@@ -13,6 +13,8 @@ public class MouseManager : MonoBehaviour {
 	}
 
 	public LineRenderer deletionMarker;
+	public LineRenderer wireMarker;
+	public SpriteRenderer ghostMarker;
 
 #pragma warning disable CS0108 // Member hides inherited member; missing new keyword
 	Camera camera;
@@ -21,8 +23,9 @@ public class MouseManager : MonoBehaviour {
 	Circuit circuit;
 
 	bool isDragging;
-	Vector3 startPos;
+	IntVector startPos;
 	DragType drag;
+	ComponentType build = ComponentType.Empty;
 
 
 	private void Start()
@@ -35,6 +38,9 @@ public class MouseManager : MonoBehaviour {
 	void Update ()
 	{
 		if (isDragging && es.IsPointerOverGameObject()) {
+			deletionMarker.gameObject.SetActive(false);
+			wireMarker.gameObject.SetActive(false);
+			ghostMarker.gameObject.SetActive(false);
 			isDragging = false;
 			return;
 		}
@@ -42,20 +48,15 @@ public class MouseManager : MonoBehaviour {
 		{
 			if (es.IsPointerOverGameObject())
 				return;
-			startPos = camera.ScreenToWorldPoint(Input.mousePosition);
-			startPos.x = Mathf.Round(startPos.x);
-			startPos.y = Mathf.Round(startPos.y);
+			startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
 			CircuitTile tile;
-			if (circuit.GetTileAt(startPos, out tile) && !tile.unbuildable)
+			if (circuit.GetTileAt(startPos, out tile) && tile.component != ComponentType.Unbuildable && tile.component != ComponentType.Input && tile.component != ComponentType.Output)
 			{
 				isDragging = true;
-				if (tile.component == null)
+				if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
 					drag = DragType.build;
 				else
-				{
-					//TODO: Check wire&wire
 					drag = DragType.move;
-				}
 			}
 		}
 		else if (Input.GetMouseButtonDown(1))
@@ -63,7 +64,7 @@ public class MouseManager : MonoBehaviour {
 			if (es.IsPointerOverGameObject())
 				return;
 			isDragging = true;
-			startPos = camera.ScreenToWorldPoint(Input.mousePosition);
+			startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition));
 			drag = DragType.destroy;
 		}
 		if (isDragging)
@@ -85,7 +86,34 @@ public class MouseManager : MonoBehaviour {
 
 	void DragBuild()
 	{
-
+		IntVector endPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
+		if (build == ComponentType.Wire)
+		{
+			IntVector start = new IntVector(Mathf.Min(startPos.x, endPos.x), Mathf.Min(startPos.y, endPos.y));
+			IntVector end = new IntVector(Mathf.Max(startPos.x, endPos.x), Mathf.Max(startPos.y, endPos.y));
+			if (end.x - start.x > end.y - start.y)
+			{
+				start.y = startPos.y;
+				end.y = startPos.y;
+			}
+			else
+			{
+				start.x = startPos.x;
+				end.x = startPos.x;
+			}
+			if (Input.GetMouseButtonUp(0))
+			{
+				wireMarker.gameObject.SetActive(false);
+				isDragging = false;
+				circuit.DrawWire(start, end);
+			}
+			else
+			{
+				wireMarker.SetPosition(0, circuit.LocalToWorld(start));
+				wireMarker.SetPosition(1, circuit.LocalToWorld(end));
+				wireMarker.gameObject.SetActive(true);
+			}
+		}
 	}
 
 	void DragMove()
@@ -95,7 +123,7 @@ public class MouseManager : MonoBehaviour {
 
 	void DragDelete()
 	{
-		Vector3 endPos = camera.ScreenToWorldPoint(Input.mousePosition);
+		IntVector endPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition));
 		if (Input.GetMouseButtonUp(1))
 		{
 			isDragging = false;
@@ -104,21 +132,25 @@ public class MouseManager : MonoBehaviour {
 		}
 		else
 		{
-			float topx = Mathf.Ceil(Mathf.Max(startPos.x, endPos.x));
-			float topy = Mathf.Ceil(Mathf.Max(startPos.y, endPos.y));
-			float botx = Mathf.Floor(Mathf.Min(startPos.x, endPos.x));
-			float boty = Mathf.Floor(Mathf.Min(startPos.y, endPos.y));
+			Vector3 top = circuit.LocalToWorld(new IntVector(Mathf.Max(startPos.x, endPos.x), Mathf.Max(startPos.y, endPos.y))) + new Vector3(0.5f, 0.5f);
+			Vector3 bot = circuit.LocalToWorld(new IntVector(Mathf.Min(startPos.x, endPos.x), Mathf.Min(startPos.y, endPos.y))) - new Vector3(0.5f, 0.5f);
+			deletionMarker.SetPosition(0, new Vector3(top.x, top.y));
+			deletionMarker.SetPosition(1, new Vector3(top.x, bot.y));
+			deletionMarker.SetPosition(2, new Vector3(bot.x, bot.y));
+			deletionMarker.SetPosition(3, new Vector3(bot.x, top.y));
+			deletionMarker.SetPosition(4, new Vector3(top.x, top.y));
+			deletionMarker.SetPosition(5, new Vector3(top.x, bot.y));
+			deletionMarker.SetPosition(6, new Vector3(bot.x, top.y));
+			deletionMarker.SetPosition(7, new Vector3(bot.x, bot.y));
+			deletionMarker.SetPosition(8, new Vector3(top.x, top.y));
 			deletionMarker.gameObject.SetActive(true);
-			deletionMarker.SetPosition(0, new Vector3(topx, topy));
-			deletionMarker.SetPosition(1, new Vector3(topx, boty));
-			deletionMarker.SetPosition(2, new Vector3(botx, boty));
-			deletionMarker.SetPosition(3, new Vector3(botx, topy));
-			deletionMarker.SetPosition(4, new Vector3(topx, topy));
-			deletionMarker.SetPosition(5, new Vector3(topx, boty));
-			deletionMarker.SetPosition(6, new Vector3(botx, topy));
-			deletionMarker.SetPosition(7, new Vector3(botx, boty));
-			deletionMarker.SetPosition(8, new Vector3(topx, topy));
 		}
 	}
 
+
+	public void SetComponentToBuild(ComponentType ctb)
+	{
+		build = ctb;
+	}
 }
+

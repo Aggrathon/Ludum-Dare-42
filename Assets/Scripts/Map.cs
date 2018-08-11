@@ -67,26 +67,21 @@ public class Map : ScriptableObject
 		outputs = 0;
 		for (int i = 0; i < cc.Length; i++)
 		{
-			if (cc[i].x >= width)
-				width = cc[i].x + 1;
-			if (cc[i].y >= height)
-				height = cc[i].y + 1;
-			if (cc[i].unbuildable)
+			if (cc[i].localPosition.x >= width)
+				width = cc[i].localPosition.x + 1;
+			if (cc[i].localPosition.y >= height)
+				height = cc[i].localPosition.y + 1;
+			if (cc[i].component == ComponentType.Unbuildable)
+				_map[i] = 1;
+			else if(cc[i].component == ComponentType.Input)
 			{
-				if (cc[i].inputIndex >= 0)
-				{
-					inputs++;
-					_map[i] = 2;
-				}
-				else if (cc[i].outputIndex >= 0)
-				{
-					outputs++;
-					_map[i] = 3;
-				}
-				else
-				{
-					_map[i] = 1;
-				}
+				inputs++;
+				_map[i] = 2;
+			}
+			else if (cc[i].component == ComponentType.Output)
+			{
+				outputs++;
+				_map[i] = 3;
 			}
 		}
 	}
