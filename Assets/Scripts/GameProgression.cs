@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameProgression : MonoBehaviour {
 
@@ -39,6 +40,11 @@ public class GameProgression : MonoBehaviour {
 
 	public void LoadLevel(int index)
 	{
+		if (index >= maps.Length)
+		{
+			SceneManager.LoadScene(0);
+			return;
+		}
 		circuit.Setup(maps[index]);
 		currentLevel = index;
 		_currentState = 0;
