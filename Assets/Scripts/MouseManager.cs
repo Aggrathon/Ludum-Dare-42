@@ -90,7 +90,7 @@ public class MouseManager : MonoBehaviour {
 	{
 		startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
 		CircuitTile tile;
-		if (circuit.GetTileAt(startPos, out tile))
+		if (circuit.GetTileAt(startPos, out tile) && tile.component != ComponentType.Unbuildable && tile.component != ComponentType.Input && tile.component != ComponentType.Output)
 		{
 			isDragging = true;
 			if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
@@ -221,7 +221,7 @@ public class MouseManager : MonoBehaviour {
 		{
 			isDragging = false;
 			deletionMarker.gameObject.SetActive(false);
-			circuit.DeleteArea(startPos, endPos);
+			circuit.DeleteArea(startPos, endPos, build == ComponentType.Unbuildable);
 		}
 		else
 		{

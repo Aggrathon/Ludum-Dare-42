@@ -120,7 +120,7 @@ public class Circuit : MonoBehaviour {
 		return true;
 	}
 
-	public void DeleteArea(IntVector al, IntVector bl)
+	public void DeleteArea(IntVector al, IntVector bl, bool force = false)
 	{
 		int minx = Mathf.Max(0, Mathf.Min(al.x, bl.x));
 		int maxx = Mathf.Min(map.width, Mathf.Max(al.x, bl.x)+1);
@@ -131,12 +131,14 @@ public class Circuit : MonoBehaviour {
 			for (int i = minx; i < maxx; i++)
 			{
 				int index = j * map.width + i;
-				if (circuit[index].component == ComponentType.Unbuildable || circuit[index].component == ComponentType.Input || circuit[index].component == ComponentType.Output)
+				if (!force && (circuit[index].component == ComponentType.Unbuildable || circuit[index].component == ComponentType.Input || circuit[index].component == ComponentType.Output))
 					continue;
 				circuit[index].component = ComponentType.Empty;
 			}
 		}
 		dirty = true;
+		if (force)
+			DrawOutline();
 	}
 
 	public void DrawWire(IntVector al, IntVector bl)
@@ -162,20 +164,15 @@ public class Circuit : MonoBehaviour {
 		if (!CheckLocalBounds(a))
 			return;
 		int index = LocalToIndex(a);
-		if (ct == ComponentType.Unbuildable)
-		{
-			if (circuit[index].component == ComponentType.Unbuildable)
-				circuit[index].component = ComponentType.Empty;
-			else
-				circuit[index].component = ComponentType.Unbuildable;
-			dirty = true;
-			DrawOutline();
-		}
-		else if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
+		if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
 		{
 			circuit[index].component = ct;
 			circuit[index].rotation = 0;
 			dirty = true;
+			if (ct == ComponentType.Unbuildable)
+			{
+				DrawOutline();
+			}
 		}
 	}
 
