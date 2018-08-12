@@ -1988,6 +1988,8 @@ MonoBehaviour:
   norPrefab: {fileID: 1945728527486298, guid: 82e131fe11c67144fa4bdce414502d0f, type: 2}
   nandPrefab: {fileID: 1945728527486298, guid: 899cabc8e83069143842db668499b790, type: 2}
   xorPrefab: {fileID: 1945728527486298, guid: a1785d633e29bbb4aae934b12eeccaf8, type: 2}
+  bridgePrefab: {fileID: 1945728527486298, guid: 05a64ff2df21b6649a456d2858dd82bf,
+    type: 2}
   inputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
     type: 2}
   outputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
@@ -2744,13 +2746,13 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: d41132c124e24d94095e7cde962bd6be, type: 3}
     component: 6
   - name: Bridge
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 66691e7dc41e05e44bf95b35d088114c, type: 3}
     component: 7
   - name: Empty
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: c84d00da36169874fb93926cb890edfe, type: 3}
     component: 8
   - name: Unbuildable
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: ed64c24e391dc1449a96dad8de5da204, type: 3}
     component: 9
   - name: Input
     icon: {fileID: 0}

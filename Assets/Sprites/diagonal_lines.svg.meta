@@ -13,7 +13,6 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
   SvgPixelsPerUnit: 100
-  GradientResolution: 128
   Alignment: 0
   CustomPivot: {x: 0, y: 0}
   AdvancedMode: 0
@@ -26,19 +25,18 @@ ScriptedImporter:
   MaxCordDeviation: 1
   MaxTangentAngleEnabled: 0
   MaxTangentAngle: 5
-  spriteData:
+  m_SpriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: 
-      originalName: 
-      pivot: {x: 0, y: 0}
-      alignment: 0
-      border: {x: 0, y: 0, z: 0, w: 0}
-      rect:
-        serializedVersion: 2
+      m_Name: 
+      m_OriginalName: 
+      m_Pivot: {x: 0, y: 0}
+      m_Alignment: 0
+      m_Border: {x: 0, y: 0, z: 0, w: 0}
+      m_Rect:
         x: 0
         y: 0
         width: 0
         height: 0
-      spriteID: 0561c29d227cc7f418342483a5d17824
+      m_SpriteID: 0561c29d227cc7f418342483a5d17824
     PhysicsOutlines: []

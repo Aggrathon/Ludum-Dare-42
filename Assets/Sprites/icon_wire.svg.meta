@@ -13,7 +13,6 @@ ScriptedImporter:
   assetBundleVariant: 
   script: {fileID: 11500000, guid: a57477913897c46af95d590f580878bd, type: 3}
   SvgPixelsPerUnit: 32
-  GradientResolution: 128
   Alignment: 0
   CustomPivot: {x: 0, y: 0}
   AdvancedMode: 0
@@ -26,19 +25,18 @@ ScriptedImporter:
   MaxCordDeviation: 1
   MaxTangentAngleEnabled: 0
   MaxTangentAngle: 5
-  spriteData:
+  m_SpriteData:
     TessellationDetail: 0
     SpriteRect:
-      name: icon_wireSprite
-      originalName: 
-      pivot: {x: 0.49730623, y: 0.5001413}
-      alignment: 0
-      border: {x: 0, y: 0, z: 0, w: 0}
-      rect:
-        serializedVersion: 2
+      m_Name: icon_wireSprite
+      m_OriginalName: 
+      m_Pivot: {x: 0.49730623, y: 0.5001413}
+      m_Alignment: 0
+      m_Border: {x: 0, y: 0, z: 0, w: 0}
+      m_Rect:
         x: 0
         y: 0
         width: 76
         height: 101
-      spriteID: 33f5a5b513e5bb446820478596cccd05
+      m_SpriteID: 33f5a5b513e5bb446820478596cccd05
     PhysicsOutlines: []

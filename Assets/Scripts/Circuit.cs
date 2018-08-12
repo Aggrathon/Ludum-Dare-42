@@ -20,6 +20,7 @@ public class Circuit : MonoBehaviour {
 	[SerializeField] GameObject norPrefab;
 	[SerializeField] GameObject nandPrefab;
 	[SerializeField] GameObject xorPrefab;
+	[SerializeField] GameObject bridgePrefab;
 	[SerializeField] GameObject inputPrefab;
 	[SerializeField] GameObject outputPrefab;
 	
@@ -162,6 +163,8 @@ public class Circuit : MonoBehaviour {
 
 	public void BuildComponent(ComponentType ct, IntVector a)
 	{
+		if (!CheckLocalBounds(a))
+			return;
 		int index = LocalToIndex(a);
 		if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
 		{
@@ -171,8 +174,25 @@ public class Circuit : MonoBehaviour {
 		dirty = true;
 	}
 
+	public void BuildBridge(IntVector a, IntVector b)
+	{
+		if (!CheckLocalBounds(a) || !CheckLocalBounds(b))
+			return;
+		var source = circuit[LocalToIndex(a)];
+		var target = circuit[LocalToIndex(b)];
+		if ((target.component != ComponentType.Empty && target.component != ComponentType.Wire) || (source.component != ComponentType.Empty && source.component != ComponentType.Wire))
+			return;
+		source.index = Bridge.numBridges;
+		target.index = Bridge.numBridges++;
+		source.component = ComponentType.Bridge;
+		target.component = ComponentType.Bridge;
+		dirty = true;
+	}
+
 	public void MoveComponent(IntVector a, IntVector b)
 	{
+		if (!CheckLocalBounds(a) || !CheckLocalBounds(b))
+			return;
 		if (a.x == b.x && a.y == b.y)
 		{
 			circuit[LocalToIndex(a)].rotation++;
@@ -232,6 +252,7 @@ public class Circuit : MonoBehaviour {
 
 	void RecreateCircuit()
 	{
+		Bridge.Redraw();
 		for (int i = 0; i < circuit.Length; i++)
 		{
 			if (circuit[i].obj != null)
@@ -266,6 +287,9 @@ public class Circuit : MonoBehaviour {
 						break;
 					case ComponentType.Xor:
 						ObjectPool.Spawn(xorPrefab, circuit[i].position).GetComponent<Gate>().Setup(this, circuit[i]);
+						break;
+					case ComponentType.Bridge:
+						ObjectPool.Spawn(bridgePrefab, circuit[i].position).GetComponent<Bridge>().Setup(this, circuit[i]);
 						break;
 					case ComponentType.Input:
 						ObjectPool.Spawn(inputPrefab, circuit[i].position).GetComponent<ACircuitComponent>().Setup(this, circuit[i]);
