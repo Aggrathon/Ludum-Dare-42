@@ -316,23 +316,28 @@ public class Circuit : MonoBehaviour {
 		}
 		if (cd - Time.time < 0)
 		{
-			for (int i = 0; i < circuit.Length; i++)
-			{
-				if (circuit[i].obj != null)
-					circuit[i].obj.PreTick();
-			}
-			for (int i = 0; i < circuit.Length; i++)
-			{
-				if (circuit[i].obj != null)
-					circuit[i].obj.Tick();
-			}
-			for (int i = 0; i < circuit.Length; i++)
-			{
-				if (circuit[i].obj != null)
-					circuit[i].obj.PostTick();
-			}
-			cd = Time.time + tickRate;
+			Tick();
 		}
+	}
+
+	public void Tick()
+	{
+		for (int i = 0; i < circuit.Length; i++)
+		{
+			if (circuit[i].obj != null)
+				circuit[i].obj.PreTick();
+		}
+		for (int i = 0; i < circuit.Length; i++)
+		{
+			if (circuit[i].obj != null)
+				circuit[i].obj.Tick();
+		}
+		for (int i = 0; i < circuit.Length; i++)
+		{
+			if (circuit[i].obj != null)
+				circuit[i].obj.PostTick();
+		}
+		cd = Time.time + tickRate;
 	}
 }
 

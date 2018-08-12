@@ -21,10 +21,6 @@ public class Panel : MonoBehaviour {
 	MouseManager mm;
 	GameProgression gp;
 
-	public void Test()
-	{
-
-	}
 
 	public void Collapse()
 	{
@@ -83,7 +79,7 @@ public class Panel : MonoBehaviour {
 			}
 			levelSelect.options = list;
 			levelSelect.onValueChanged.AddListener(gp.LoadLevel);
-			gp.onLevelChanged.AddListener(() => { levelSelect.value = gp.currentLevel; });
+			gp.onLevelChanged.AddListener((h) => { levelSelect.value = h; });
 		}
 		if (buildButtons)
 		{
@@ -99,14 +95,14 @@ public class Panel : MonoBehaviour {
 				buildButtons.GetChild(i).GetChild(1).GetComponent<Image>().sprite = mm.previews[i].icon;
 				buildButtons.GetChild(i).GetChild(0).GetComponent<TextMeshProUGUI>().text = mm.previews[i].name;
 			}
-			gp.onLevelChanged.AddListener(() => {
+			gp.onLevelChanged.AddListener((_) => {
 				for (int k = 0; k < buildButtons.childCount; k++)
 					buildButtons.GetChild(k).gameObject.SetActive((gp.currentMap.activeComponents & (1 << k)) > 0);
 			});
 		}
 		if (stateButtons)
 		{
-			gp.onLevelChanged.AddListener(() => {
+			gp.onLevelChanged.AddListener((_) => {
 				var map = gp.currentMap;
 				for (int i = stateButtons.childCount; i < map.states.Length; i++)
 				{
@@ -122,9 +118,13 @@ public class Panel : MonoBehaviour {
 					var tr = stateButtons.GetChild(i);
 					tr.GetChild(0).GetComponent<TextMeshProUGUI>().text = "Status\n<color=blue>Unknown</color>";
 					tr.GetChild(1).GetComponent<Image>().sprite = map.DrawState(i);
+					tr.gameObject.SetActive(true);
 				}
 			});
-			gp.onStateChanged.AddListener(() => SetState(gp.currentState));
+			gp.onStateChanged.AddListener(SetState);
+			gp.onStateValidated.AddListener((l, b) => {
+				stateButtons.GetChild(l).GetChild(0).GetComponent<TextMeshProUGUI>().text = b ? "Status:\n<color=green>Passed</color>" : "Status:\n<color=red>Failed</color>";
+			});
 		}
 	}
 }

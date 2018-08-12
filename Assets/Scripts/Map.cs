@@ -93,7 +93,7 @@ public class Map : ScriptableObject
 		for (int i = 0; i < cols.Length; i++)
 			cols[i] = Color.gray;
 		for (int i = 3; i < cols.Length; i+=7)
-			cols[i] = Color.white;
+			cols[i] = Color.clear;
 		for (int i = 0; i < inputs; i++)
 			cols[i * 2 * 7 + 7 + 1] = (states[index].x & (1 << i)) > 0 ? Color.yellow : Color.black;
 		for (int i = 0; i < outputs; i++)

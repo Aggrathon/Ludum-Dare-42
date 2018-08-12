@@ -6,11 +6,13 @@ using UnityEngine.Events;
 public class GameProgression : MonoBehaviour {
 
 	public Map[] maps;
-	public UnityEvent onLevelChanged;
-	public UnityEvent onStateChanged;
+	public UnityIntEvent onLevelChanged;
+	public UnityIntEvent onStateChanged;
+	public UnityIntBoolEvent onStateValidated;
 
 	private Circuit circuit;
 	private int _currentState;
+	private int outputStates;
 
 	public Map currentMap { get { return maps[currentLevel]; } }
 	public int currentLevel { get; private set; }
@@ -24,10 +26,11 @@ public class GameProgression : MonoBehaviour {
 			if (value != _currentState)
 			{
 				_currentState = value;
-				onStateChanged.Invoke();
+				onStateChanged.Invoke(value);
 			}
 		}
 	}
+	public bool isStateCorrect { get { return outputStates == (1 << currentMap.outputs) - 1; } }
 
 	void Start () {
 		circuit = FindObjectOfType<Circuit>();
@@ -39,8 +42,9 @@ public class GameProgression : MonoBehaviour {
 		circuit.Setup(maps[index]);
 		currentLevel = index;
 		_currentState = 0;
-		onLevelChanged.Invoke();
-		onStateChanged.Invoke();
+		onLevelChanged.Invoke(index);
+		onStateChanged.Invoke(0);
+		outputStates = 0;
 	}
 
 	public bool GetInputStatus(int input)
@@ -52,4 +56,18 @@ public class GameProgression : MonoBehaviour {
 	{
 		return (currentMap.states[currentState].y & (1 << input)) > 0;
 	}
+
+	public void SetOutputState(int index, bool s)
+	{
+		if (s)
+			outputStates = outputStates | (1 << index);
+		else
+			outputStates = outputStates - (outputStates & (1 << index));
+	}
+	
 }
+
+[System.Serializable]
+public class UnityIntEvent : UnityEvent<int> { }
+[System.Serializable]
+public class UnityIntBoolEvent : UnityEvent<int, bool> { }

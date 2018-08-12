@@ -85,6 +85,6 @@ public class CircuitOutput : ACircuitComponent
 
 	void MarkStatus(bool status)
 	{
-		//TODO: Mark Output
+		gp.SetOutputState(tile.index, status);
 	}
 }
