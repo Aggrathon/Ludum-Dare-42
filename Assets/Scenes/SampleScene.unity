@@ -1990,9 +1990,9 @@ MonoBehaviour:
   xorPrefab: {fileID: 1945728527486298, guid: a1785d633e29bbb4aae934b12eeccaf8, type: 2}
   bridgePrefab: {fileID: 1945728527486298, guid: 05a64ff2df21b6649a456d2858dd82bf,
     type: 2}
-  inputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
+  inputPrefab: {fileID: 1963259175328162, guid: 464756d66a7924b4fb53ae28265228f0,
     type: 2}
-  outputPrefab: {fileID: 1945728527486298, guid: fb16cb9ed43b4564f8313d5c06bd3a16,
+  outputPrefab: {fileID: 1963259175328162, guid: e4251290d070a8049b27f6e110f45e77,
     type: 2}
 --- !u!4 &1110776283
 Transform:
@@ -2755,10 +2755,10 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: ed64c24e391dc1449a96dad8de5da204, type: 3}
     component: 9
   - name: Input
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 67fefa46fe4cf32438f5d6564f5c8c69, type: 3}
     component: 10
   - name: Output
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: 67fefa46fe4cf32438f5d6564f5c8c69, type: 3}
     component: 11
 --- !u!4 &1787398321
 Transform:

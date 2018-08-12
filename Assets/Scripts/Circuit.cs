@@ -78,7 +78,7 @@ public class Circuit : MonoBehaviour {
 		var cols = tex.GetPixels();
 		for (int i = 0; i < circuit.Length; i++)
 		{
-			if (circuit[i].component == ComponentType.Unbuildable || circuit[i].component == ComponentType.Input || circuit[i].component == ComponentType.Output)
+			if (circuit[i].component == ComponentType.Unbuildable)// || circuit[i].component == ComponentType.Input || circuit[i].component == ComponentType.Output)
 			{
 				cols[i * 4 + 0] = new Color(0, 0, 0, 0);
 				cols[i * 4 + 1] = new Color(0, 0, 0, 0);
@@ -372,6 +372,32 @@ public struct IntVector
 			default:
 				return new IntVector(x + 1, y);
 		}
+	}
+
+	public override bool Equals(object obj)
+	{
+		if (!(obj is IntVector))
+		{
+			return false;
+		}
+		var vector = (IntVector)obj;
+		return x == vector.x &&
+			   y == vector.y;
+	}
+
+	public override int GetHashCode()
+	{
+		return (x << 15) + ((y << 15) >> 15);
+	}
+
+	public static bool operator ==(IntVector a, IntVector b)
+	{
+		return a.x == b.x && a.y == b.y;
+	}
+
+	public static bool operator !=(IntVector a, IntVector b)
+	{
+		return a.x != b.x || a.y != b.y;
 	}
 }
 

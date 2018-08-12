@@ -18,4 +18,14 @@ public class GameProgression : MonoBehaviour {
 	{
 		circuit.Setup(maps[index]);
 	}
+
+	public bool GetInputStatus(int input)
+	{
+		return true;
+	}
+
+	public bool GetOutputStatus(int input)
+	{
+		return Random.value > 0.5f;
+	}
 }

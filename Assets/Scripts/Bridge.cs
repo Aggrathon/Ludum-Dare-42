@@ -5,6 +5,9 @@ using System.Collections.Generic;
 [RequireComponent(typeof(LineRenderer))]
 public class Bridge : ACircuitComponent
 {
+	public SpriteRenderer status;
+	public Color onColor = Color.yellow;
+	public Color offColor = Color.white;
 	bool power;
 	Circuit circuit;
 	CircuitTile tile;
@@ -22,7 +25,7 @@ public class Bridge : ACircuitComponent
 			matcher.Clear();
 	}
 
-	public override bool isOn()
+	public override bool isOn(IntVector origin)
 	{
 		return power;
 	}
@@ -30,6 +33,7 @@ public class Bridge : ACircuitComponent
 	public override void PostTick()
 	{
 		power = power | other.power;
+		status.color = power ? onColor : offColor;
 	}
 
 	public override void PreTick()
@@ -74,13 +78,13 @@ public class Bridge : ACircuitComponent
 			power = false;
 		}
 		CircuitTile t;
-		if (circuit.GetTileAt(tile.localPosition.RotatedStep(0), out t) && t.obj != null && t.obj.isOn())
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(0), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
 			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null && t.obj.isOn())
+		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
 			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null && t.obj.isOn())
+		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
 			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null && t.obj.isOn())
+		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
 			power = true;
 	}
 
@@ -98,11 +102,11 @@ public class Bridge : ACircuitComponent
 		CircuitTile t;
 		if (circuit.GetTileAt(tile.localPosition.RotatedStep(0), out t) && t.obj != null)
 			t.obj.TrySetOn();
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null)
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null)
 			t.obj.TrySetOn();
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null)
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null)
 			t.obj.TrySetOn();
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null)
+		if (circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null)
 			t.obj.TrySetOn();
 	}
 

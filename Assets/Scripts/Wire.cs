@@ -17,7 +17,7 @@ public class Wire : ACircuitComponent
 		lr = GetComponent<LineRenderer>();
 	}
 
-	public override bool isOn()
+	public override bool isOn(IntVector origin)
 	{
 		return power;
 	}
@@ -43,12 +43,12 @@ public class Wire : ACircuitComponent
 
 	public override void Tick()
 	{
-		oldpower = power;
 	}
 
 	public override void TrySetOn()
 	{
 		power = true;
+		oldpower = power;
 	}
 
 	public override void Setup(Circuit circuit, CircuitTile tile)

@@ -10,9 +10,12 @@ public class Gate : ACircuitComponent
 
 	public ComponentType gateType;
 
-	public override bool isOn()
+	public override bool isOn(IntVector origin)
 	{
-		return power;
+		if (tile.localPosition.RotatedStep(tile.rotation) == origin)
+			return power;
+		else
+			return false;
 	}
 
 	public override void PostTick()
@@ -45,8 +48,9 @@ public class Gate : ACircuitComponent
 		CircuitTile t;
 		if (gateType == ComponentType.Not)
 		{
+
 			if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 2), out t) && t.obj != null)
-				nextPower = !t.obj.isOn();
+				nextPower = !t.obj.isOn(tile.localPosition);
 			else
 				nextPower = true;
 			return;
@@ -54,9 +58,9 @@ public class Gate : ACircuitComponent
 		bool first = false;
 		bool second = false;
 		if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 1), out t) && t.obj != null)
-			first = t.obj.isOn();
+			first = t.obj.isOn(tile.localPosition);
 		if (circuit.GetTileAt(tile.localPosition.RotatedStep(tile.rotation + 3), out t) && t.obj != null)
-			second = t.obj.isOn();
+			second = t.obj.isOn(tile.localPosition);
 		switch (gateType)
 		{
 			case ComponentType.And:
