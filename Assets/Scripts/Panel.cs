@@ -73,7 +73,7 @@ public class Panel : MonoBehaviour {
 		{
 			var list = new List<TMP_Dropdown.OptionData>();
 			var levels = gp.maps;
-			for (int i = 0; i < levels.Length; i++)
+			for (int i = 0; i < levels.Count; i++)
 			{
 				list.Add(new TMP_Dropdown.OptionData(levels[i].title));
 			}

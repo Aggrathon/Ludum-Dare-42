@@ -6979,25 +6979,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b91f54d137099fa418a90e501e42551c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maps:
-  - {fileID: 11400000, guid: aacbca62addbae0458185c570e74111a, type: 2}
-  - {fileID: 11400000, guid: 93dbf1eeb7bfca143875c9d48bb6840d, type: 2}
-  - {fileID: 11400000, guid: 407312f46e85fba4f91b859963ea20dd, type: 2}
-  - {fileID: 11400000, guid: ca67a54841dd4224886c3990a3f2eb4c, type: 2}
-  - {fileID: 11400000, guid: 88464cb2afe6f9940941a595cfe70821, type: 2}
-  - {fileID: 11400000, guid: e592b048ab5819841b451b02b91bddb3, type: 2}
-  - {fileID: 11400000, guid: de0647ba53c1f674d89ee9ddeb6a7aef, type: 2}
-  - {fileID: 11400000, guid: 6793c84d2aa0ff04c9fc33f5f7938d2a, type: 2}
-  - {fileID: 11400000, guid: 5a6b2385d64547445805f0fc03883640, type: 2}
-  - {fileID: 11400000, guid: 6a951fa7b8701e041a4e437c8ac19bd1, type: 2}
-  - {fileID: 11400000, guid: 70cf6cbbb37c2fb46bbdddf4bb2e0692, type: 2}
-  - {fileID: 11400000, guid: b2668da3ba5798b41ab3ea24b1bebd31, type: 2}
-  - {fileID: 11400000, guid: 9e8bacbfce57d2747a03bb52d2d469d9, type: 2}
-  - {fileID: 11400000, guid: 70e9b3f64e96aad4c8746471f7c39358, type: 2}
-  - {fileID: 11400000, guid: b652fa40ff1d5d24e8ccf648b49ff55b, type: 2}
-  - {fileID: 11400000, guid: b7e8c45690bc0c74f978d293832e7c98, type: 2}
-  - {fileID: 11400000, guid: 88161f454097d27499435e4ba1ab11a3, type: 2}
-  - {fileID: 11400000, guid: 81989eb1fcaa5a14db86c46d06d23701, type: 2}
+  maplist: {fileID: 11400000, guid: bae73b4966b1fed41b1727c3e585aa38, type: 2}
   onLevelChanged:
     m_PersistentCalls:
       m_Calls: []

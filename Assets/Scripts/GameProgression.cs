@@ -6,7 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class GameProgression : MonoBehaviour {
 
-	public Map[] maps;
+	[System.NonSerialized] public List<Map> maps;
+	[SerializeField] MapList maplist;
 	public UnityIntEvent onLevelChanged;
 	public UnityIntEvent onStateChanged;
 	public UnityIntBoolEvent onStateValidated;
@@ -33,14 +34,19 @@ public class GameProgression : MonoBehaviour {
 	}
 	public bool isStateCorrect { get { return outputStates == (1 << currentMap.outputs) - 1; } }
 
-	void Start () {
+	private void Awake()
+	{
+		maps = maplist.GetAllMaps();
 		circuit = FindObjectOfType<Circuit>();
+	}
+
+	void Start () {
 		LoadLevel(0);
 	}
 
 	public void LoadLevel(int index)
 	{
-		if (index >= maps.Length)
+		if (index >= maps.Count)
 		{
 			SceneManager.LoadScene(0);
 			return;
