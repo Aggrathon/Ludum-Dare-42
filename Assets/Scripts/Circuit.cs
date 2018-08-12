@@ -31,9 +31,12 @@ public class Circuit : MonoBehaviour {
 
 	public void Setup(Map map)
 	{
+		if (circuit != null && circuit.Length > 0)
+			for (int i = 0; i < circuit.Length; i++)
+				if (circuit[i].obj != null)
+					circuit[i].obj.gameObject.SetActive(false);
 		//camera.orthographicSize = Mathf.Max(map.width, map.height+1)*0.5f;
 		this.map = map;
-
 		var layout = map.map;
 		circuit = new CircuitTile[map.height * map.width];
 		int w = map.width;

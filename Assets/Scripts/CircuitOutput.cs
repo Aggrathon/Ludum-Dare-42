@@ -28,6 +28,13 @@ public class CircuitOutput : ACircuitComponent
 
 	public override void PreTick()
 	{
+		bool np = gp.GetOutputStatus(tile.index);
+		if (shouldPower != np)
+		{
+			shouldPower = np;
+			counter = 0;
+			MarkStatus(false);
+		}
 	}
 
 	public override void Setup(Circuit circuit, CircuitTile tile)
@@ -37,8 +44,8 @@ public class CircuitOutput : ACircuitComponent
 		tile.obj = this;
 		if (gp == null)
 			gp = FindObjectOfType<GameProgression>();
-		shouldPower = gp.GetOutputStatus(tile.index);
-		status.color = shouldPower ? shouldOnColor : offColor;
+		counter = 0;
+		MarkStatus(false);
 	}
 
 	public override void Tick()
@@ -52,14 +59,12 @@ public class CircuitOutput : ACircuitComponent
 		{
 			counter++;
 			if (counter >= stabilizingTicks)
-			{
-				//TODO: Mark Output Correct
-			}
+				MarkStatus(true);
 		}
 		else
 		{
 			counter = 0;
-			//TODO: Mark Output Incorrect
+			MarkStatus(false);
 		}
 		prevPower = power;
 		if (shouldPower)
@@ -76,5 +81,10 @@ public class CircuitOutput : ACircuitComponent
 
 	public override void TrySetOn()
 	{
+	}
+
+	void MarkStatus(bool status)
+	{
+		//TODO: Mark Output
 	}
 }

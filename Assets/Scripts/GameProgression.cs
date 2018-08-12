@@ -7,35 +7,49 @@ public class GameProgression : MonoBehaviour {
 
 	public Map[] maps;
 	public UnityEvent onLevelChanged;
+	public UnityEvent onStateChanged;
 
 	private Circuit circuit;
-	int loadedLevel;
+	private int _currentState;
 
-	public Map currentMap { get { return maps[loadedLevel]; } }
-	public int currentIndex { get { return loadedLevel; } }
+	public Map currentMap { get { return maps[currentLevel]; } }
+	public int currentLevel { get; private set; }
+	public int currentState {
+		get { return _currentState; }
+		set {
+			if (value < 0)
+				value = 0;
+			if (value >= currentMap.states.Length)
+				value = currentMap.states.Length;
+			if (value != _currentState)
+			{
+				_currentState = value;
+				onStateChanged.Invoke();
+			}
+		}
+	}
 
 	void Start () {
 		circuit = FindObjectOfType<Circuit>();
-		circuit.Setup(maps[0]);
-		loadedLevel = 0;
-		onLevelChanged.Invoke();
+		LoadLevel(0);
 	}
-	
 
 	public void LoadLevel(int index)
 	{
 		circuit.Setup(maps[index]);
-		loadedLevel = index;
+		currentLevel = index;
+		_currentState = 0;
 		onLevelChanged.Invoke();
+		onStateChanged.Invoke();
 	}
 
 	public bool GetInputStatus(int input)
 	{
-		return true;
+		return (currentMap.states[currentState].x & (1<<input)) > 0;
 	}
 
 	public bool GetOutputStatus(int input)
 	{
-		return Random.value > 0.5f;
+		return (currentMap.states[currentState].y & (1 << input)) > 0;
 	}
 }

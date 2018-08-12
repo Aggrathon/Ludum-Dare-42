@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 362c23561e0af1c4b91df8df1a6885ce, type: 3}
-  m_Name: Intro 1 Not
+  m_Name: Not 1
   m_EditorClassIdentifier: 
   title: 'Introduction: The Not Gate'
   width: 8

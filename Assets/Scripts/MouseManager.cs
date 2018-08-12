@@ -190,7 +190,6 @@ public class MouseManager : MonoBehaviour {
 				ghostMarker.gameObject.SetActive(false);
 				isDragging = false;
 				circuit.BuildComponent(build, endPos);
-				print(build);
 			}
 			else
 			{

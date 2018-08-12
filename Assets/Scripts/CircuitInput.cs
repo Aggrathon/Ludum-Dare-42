@@ -23,6 +23,8 @@ public class CircuitInput : ACircuitComponent
 
 	public override void PreTick()
 	{
+		power = gp.GetInputStatus(tile.index);
+		status.color = power ? onColor : offColor;
 		if (power)
 		{
 			CircuitTile t;
@@ -39,8 +41,6 @@ public class CircuitInput : ACircuitComponent
 		tile.obj = this;
 		if (gp == null)
 			gp = FindObjectOfType<GameProgression>();
-		power = gp.GetInputStatus(tile.index);
-		status.color = power ? onColor : offColor;
 	}
 
 	public override void Tick()

@@ -19,6 +19,7 @@ public class Panel : MonoBehaviour {
 	public Transform stateButtons;
 
 	MouseManager mm;
+	GameProgression gp;
 
 	public void Test()
 	{
@@ -60,9 +61,17 @@ public class Panel : MonoBehaviour {
 		}
 	}
 
+	public void SetState(int i)
+	{
+		for (int j = 0; j < stateButtons.childCount; j++)
+			stateButtons.GetChild(j).GetComponent<Button>().interactable = true;
+		stateButtons.GetChild(i).GetComponent<Button>().interactable = false;
+		gp.currentState = i;
+	}
+
 	private void Awake()
 	{
-		var gp = FindObjectOfType<GameProgression>();
+		gp = FindObjectOfType<GameProgression>();
 		Uncollapse();
 		if (levelSelect)
 		{
@@ -74,7 +83,7 @@ public class Panel : MonoBehaviour {
 			}
 			levelSelect.options = list;
 			levelSelect.onValueChanged.AddListener(gp.LoadLevel);
-			gp.onLevelChanged.AddListener(() => { levelSelect.value = gp.currentIndex; });
+			gp.onLevelChanged.AddListener(() => { levelSelect.value = gp.currentLevel; });
 		}
 		if (buildButtons)
 		{
@@ -100,7 +109,12 @@ public class Panel : MonoBehaviour {
 			gp.onLevelChanged.AddListener(() => {
 				var map = gp.currentMap;
 				for (int i = stateButtons.childCount; i < map.states.Length; i++)
-					Instantiate(stateButtons.GetChild(0), stateButtons);
+				{
+					var b = Instantiate(stateButtons.GetChild(0), stateButtons).GetComponent<Button>();
+					int j = i;
+					b.onClick.RemoveAllListeners();
+					b.onClick.AddListener(() => SetState(j));
+				}
 				for (int i = map.states.Length; i < stateButtons.childCount; i++)
 					stateButtons.GetChild(i).gameObject.SetActive(false);
 				for (int i = 0; i < map.states.Length; i++)
@@ -110,6 +124,7 @@ public class Panel : MonoBehaviour {
 					tr.GetChild(1).GetComponent<Image>().sprite = map.DrawState(i);
 				}
 			});
+			gp.onStateChanged.AddListener(() => SetState(gp.currentState));
 		}
 	}
 }

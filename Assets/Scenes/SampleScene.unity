@@ -4287,10 +4287,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maps:
+  - {fileID: 11400000, guid: aacbca62addbae0458185c570e74111a, type: 2}
+  - {fileID: 11400000, guid: 93dbf1eeb7bfca143875c9d48bb6840d, type: 2}
+  - {fileID: 11400000, guid: 407312f46e85fba4f91b859963ea20dd, type: 2}
   - {fileID: 11400000, guid: ca67a54841dd4224886c3990a3f2eb4c, type: 2}
-  - {fileID: 11400000, guid: ca67a54841dd4224886c3990a3f2eb4c, type: 2}
-  - {fileID: 11400000, guid: ca67a54841dd4224886c3990a3f2eb4c, type: 2}
+  - {fileID: 11400000, guid: 88464cb2afe6f9940941a595cfe70821, type: 2}
+  - {fileID: 11400000, guid: e592b048ab5819841b451b02b91bddb3, type: 2}
+  - {fileID: 11400000, guid: de0647ba53c1f674d89ee9ddeb6a7aef, type: 2}
   onLevelChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onStateChanged:
     m_PersistentCalls:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
@@ -4715,7 +4724,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: -35}
-  m_SizeDelta: {x: 400, y: 150}
+  m_SizeDelta: {x: 400, y: 600}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1829273835
 MonoBehaviour:
@@ -4858,7 +4867,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1867817310}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1708841552}
+        m_MethodName: SetState
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1867817310
