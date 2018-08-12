@@ -17,17 +17,27 @@ public class MapEditor : Editor
 		if (EditorApplication.isPlaying && GUILayout.Button("Get Current"))
 		{
 			(target as Map).CopyCurrent();
+			Save();
 			tex = null;
 		}
 		if (GUILayout.Button("Redraw"))
 		{
 			tex = null;
 		}
+		if (GUILayout.Button("Force Save"))
+			Save();
 		if (tex == null)
 			CreateImage();
 		var rect = EditorGUILayout.BeginHorizontal(GUILayout.ExpandWidth(true), GUILayout.ExpandHeight(true));
 		EditorGUI.DrawPreviewTexture(rect, tex, null, ScaleMode.ScaleToFit);
 		EditorGUILayout.EndVertical();
+	}
+
+	void Save()
+	{
+		AssetDatabase.Refresh();
+		EditorUtility.SetDirty(target);
+		AssetDatabase.SaveAssets();
 	}
 
 	void CreateImage()
