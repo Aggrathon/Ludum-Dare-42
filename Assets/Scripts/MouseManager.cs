@@ -90,7 +90,7 @@ public class MouseManager : MonoBehaviour {
 	{
 		startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
 		CircuitTile tile;
-		if (circuit.GetTileAt(startPos, out tile) && tile.component != ComponentType.Unbuildable && tile.component != ComponentType.Input && tile.component != ComponentType.Output)
+		if (circuit.GetTileAt(startPos, out tile))
 		{
 			isDragging = true;
 			if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
@@ -123,7 +123,7 @@ public class MouseManager : MonoBehaviour {
 						}
 				}
 			}
-			else
+			else if (tile.component != ComponentType.Unbuildable && tile.component != ComponentType.Input && tile.component != ComponentType.Output && tile.component != ComponentType.Bridge)
 			{
 				drag = DragType.move;
 				ghostMarker.gameObject.SetActive(true);

@@ -16,7 +16,7 @@ MonoBehaviour:
   height: 10
   inputs: 2
   outputs: 2
-  activeComponents: 63
+  activeComponents: 127
   states:
   - x: 3
     y: 3

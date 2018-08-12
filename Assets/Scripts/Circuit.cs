@@ -28,9 +28,12 @@ public class Circuit : MonoBehaviour {
 	private Map map;
 	private bool dirty = true;
 	private float cd;
+	SoundManager sound;
 
 	public void Setup(Map map)
 	{
+		if (sound == null)
+			sound = FindObjectOfType<SoundManager>();
 		if (circuit != null && circuit.Length > 0)
 			for (int i = 0; i < circuit.Length; i++)
 				if (circuit[i].obj != null)
@@ -157,6 +160,7 @@ public class Circuit : MonoBehaviour {
 			}
 		}
 		dirty = true;
+		sound.Play(SoundManager.Soundtypes.Ritch);
 	}
 
 	public void BuildComponent(ComponentType ct, IntVector a)
@@ -174,6 +178,7 @@ public class Circuit : MonoBehaviour {
 				DrawOutline();
 			}
 		}
+		sound.Play(SoundManager.Soundtypes.Paper);
 	}
 
 	public void BuildBridge(IntVector a, IntVector b)
@@ -191,6 +196,7 @@ public class Circuit : MonoBehaviour {
 		source.component = ComponentType.Bridge;
 		target.component = ComponentType.Bridge;
 		dirty = true;
+		sound.Play(SoundManager.Soundtypes.Bump);
 	}
 
 	public void MoveComponent(IntVector a, IntVector b)
