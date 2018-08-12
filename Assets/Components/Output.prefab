@@ -149,7 +149,7 @@ MonoBehaviour:
   stabilizingTicks: 10
   status: {fileID: 212802116678372338}
   onColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  shouldOnColor: {r: 0, g: 0.57395303, b: 0.84599996, a: 1}
+  shouldOnColor: {r: 0.31702998, g: 0.46091038, b: 0.64699996, a: 1}
   offColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   shouldOffColor: {r: 0.42745098, g: 0, b: 0, a: 1}
 --- !u!114 &114389403244511386
