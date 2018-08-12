@@ -43,12 +43,12 @@ public class Wire : ACircuitComponent
 
 	public override void Tick()
 	{
+		oldpower = power;
 	}
 
 	public override void TrySetOn()
 	{
 		power = true;
-		oldpower = power;
 	}
 
 	public override void Setup(Circuit circuit, CircuitTile tile)

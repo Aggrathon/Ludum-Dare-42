@@ -45,21 +45,14 @@ public class Circuit : MonoBehaviour {
 			{
 				int index = i * w + j;
 				circuit[index] = new CircuitTile() { localPosition = new IntVector(j, i), position = LocalToWorld(new IntVector(j, i)) };
+				circuit[index].component = layout[index];
 				switch (layout[index])
 				{
-					case 1:
-						circuit[index].component = ComponentType.Unbuildable;
-						break;
-					case 2:
-						circuit[index].component = ComponentType.Input;
+					case ComponentType.Input:
 						circuit[index].index = input++;
 						break;
-					case 3:
-						circuit[index].component = ComponentType.Output;
+					case ComponentType.Output:
 						circuit[index].index = output++;
-						break;
-					default:
-						circuit[index].component = ComponentType.Empty;
 						break;
 				}
 			}
@@ -166,12 +159,21 @@ public class Circuit : MonoBehaviour {
 		if (!CheckLocalBounds(a))
 			return;
 		int index = LocalToIndex(a);
-		if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
+		if (ct == ComponentType.Unbuildable)
+		{
+			if (circuit[index].component == ComponentType.Unbuildable)
+				circuit[index].component = ComponentType.Empty;
+			else
+				circuit[index].component = ComponentType.Unbuildable;
+			dirty = true;
+			DrawOutline();
+		}
+		else if (circuit[index].component == ComponentType.Empty || circuit[index].component == ComponentType.Wire)
 		{
 			circuit[index].component = ct;
 			circuit[index].rotation = 0;
+			dirty = true;
 		}
-		dirty = true;
 	}
 
 	public void BuildBridge(IntVector a, IntVector b)

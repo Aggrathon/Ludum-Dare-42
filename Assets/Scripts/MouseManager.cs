@@ -58,54 +58,7 @@ public class MouseManager : MonoBehaviour {
 		{
 			if (es.IsPointerOverGameObject() || build == ComponentType.Empty)
 				return;
-			startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
-			CircuitTile tile;
-			if (circuit.GetTileAt(startPos, out tile) && tile.component != ComponentType.Unbuildable && tile.component != ComponentType.Input && tile.component != ComponentType.Output)
-			{
-				isDragging = true;
-				if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
-				{
-					drag = DragType.build;
-					if (build == ComponentType.Wire)
-					{
-						wireMarker.gameObject.SetActive(true);
-					}
-					else if (build == ComponentType.Bridge)
-					{
-						wireMarker.gameObject.SetActive(true);
-						ghostMarker.gameObject.SetActive(true);
-						for (int i = 0; i < previews.Length; i++)
-							if (previews[i].component == build)
-							{
-								ghostMarker.sprite = previews[i].icon;
-								break;
-							}
-						wireMarker.SetPosition(0, circuit.LocalToWorld(startPos));
-					}
-					else
-					{
-						ghostMarker.gameObject.SetActive(true);
-						for (int i = 0; i < previews.Length; i++)
-							if (previews[i].component == build)
-							{
-								ghostMarker.sprite = previews[i].icon;
-								break;
-							}
-					}
-				}
-				else
-				{
-					drag = DragType.move;
-					ghostMarker.gameObject.SetActive(true);
-					for (int i = 0; i < previews.Length; i++)
-						if (previews[i].component == tile.component)
-						{
-							ghostMarker.sprite = previews[i].icon;
-							ghostMarker.transform.rotation = Quaternion.Euler(0, 0, tile.rotation * 90);
-							break;
-						}
-				}
-			}
+			StartBuild();
 		}
 		else if (Input.GetMouseButtonDown(1))
 		{
@@ -129,6 +82,58 @@ public class MouseManager : MonoBehaviour {
 				case DragType.destroy:
 					DragDelete();
 					break;
+			}
+		}
+	}
+
+	void StartBuild()
+	{
+		startPos = circuit.WorldToLocal(camera.ScreenToWorldPoint(Input.mousePosition), true);
+		CircuitTile tile;
+		if (circuit.GetTileAt(startPos, out tile))
+		{
+			isDragging = true;
+			if (tile.component == ComponentType.Empty || tile.component == ComponentType.Wire)
+			{
+				drag = DragType.build;
+				if (build == ComponentType.Wire)
+				{
+					wireMarker.gameObject.SetActive(true);
+				}
+				else if (build == ComponentType.Bridge)
+				{
+					wireMarker.gameObject.SetActive(true);
+					ghostMarker.gameObject.SetActive(true);
+					for (int i = 0; i < previews.Length; i++)
+						if (previews[i].component == build)
+						{
+							ghostMarker.sprite = previews[i].icon;
+							break;
+						}
+					wireMarker.SetPosition(0, circuit.LocalToWorld(startPos));
+				}
+				else
+				{
+					ghostMarker.gameObject.SetActive(true);
+					for (int i = 0; i < previews.Length; i++)
+						if (previews[i].component == build)
+						{
+							ghostMarker.sprite = previews[i].icon;
+							break;
+						}
+				}
+			}
+			else
+			{
+				drag = DragType.move;
+				ghostMarker.gameObject.SetActive(true);
+				for (int i = 0; i < previews.Length; i++)
+					if (previews[i].component == tile.component)
+					{
+						ghostMarker.sprite = previews[i].icon;
+						ghostMarker.transform.rotation = Quaternion.Euler(0, 0, tile.rotation * 90);
+						break;
+					}
 			}
 		}
 	}
@@ -185,6 +190,7 @@ public class MouseManager : MonoBehaviour {
 				ghostMarker.gameObject.SetActive(false);
 				isDragging = false;
 				circuit.BuildComponent(build, endPos);
+				print(build);
 			}
 			else
 			{

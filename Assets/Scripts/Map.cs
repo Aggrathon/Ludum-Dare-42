@@ -9,9 +9,11 @@ public class Map : ScriptableObject
 	public int height = 10;
 	public int inputs = 2;
 	public int outputs = 2;
-	[SerializeField] private int[] _map;
+	public int activeComponents = 7;
+	public IntVector[] states;
+	[SerializeField] private ComponentType[] _map;
 
-	public int[] map
+	public ComponentType[] map
 	{
 		get
 		{
@@ -28,26 +30,30 @@ public class Map : ScriptableObject
 
 	public void Reset()
 	{
-		_map = new int[height * width];
+		_map = new ComponentType[height * width];
+		for (int i = 0; i < height * width; i++)
+		{
+			_map[i] = ComponentType.Empty;
+		}
 		for (int i = 0; i < height * width; i += width)
 		{
-			_map[i] = 1;
-			_map[i + width - 1] = 1;
+			_map[i] = ComponentType.Unbuildable;
+			_map[i + width - 1] = ComponentType.Unbuildable;
 		}
 		for (int i = 0; i < width; i++)
 		{
-			_map[i] = 1;
-			_map[width * height - 1 - i] = 1;
+			_map[i] = ComponentType.Unbuildable;
+			_map[width * height - 1 - i] = ComponentType.Unbuildable;
 		}
 		float inter = (float)(height) / (float)(inputs + 1);
 		for (int i = 0; i < inputs; i++)
 		{
-			_map[Mathf.FloorToInt((i + 1) * inter) * width] = 2;
+			_map[Mathf.FloorToInt((i + 1) * inter) * width] = ComponentType.Input;
 		}
 		inter = (float)(height) / (float)(outputs + 1);
 		for (int i = 0; i < outputs; i++)
 		{
-			_map[Mathf.FloorToInt((i + 1) * inter) * width + width - 1] = 3;
+			_map[Mathf.FloorToInt((i + 1) * inter) * width + width - 1] = ComponentType.Output;
 		}
 	}
 
@@ -60,7 +66,7 @@ public class Map : ScriptableObject
 			return;
 		}
 		var cc = current.GetCircuit();
-		map = new int[cc.Length];
+		map = new ComponentType[cc.Length];
 		height = 0;
 		width = 0;
 		inputs = 0;
@@ -71,18 +77,31 @@ public class Map : ScriptableObject
 				width = cc[i].localPosition.x + 1;
 			if (cc[i].localPosition.y >= height)
 				height = cc[i].localPosition.y + 1;
-			if (cc[i].component == ComponentType.Unbuildable)
-				_map[i] = 1;
-			else if(cc[i].component == ComponentType.Input)
-			{
+			_map[i] = cc[i].component;
+			if(cc[i].component == ComponentType.Input)
 				inputs++;
-				_map[i] = 2;
-			}
 			else if (cc[i].component == ComponentType.Output)
-			{
 				outputs++;
-				_map[i] = 3;
-			}
 		}
+	}
+
+	public Sprite DrawState(int index)
+	{
+		int m = Mathf.Max(inputs, outputs);
+		Texture2D tex = new Texture2D(7, m * 2 + 1);
+		var cols = tex.GetPixels();
+		for (int i = 0; i < cols.Length; i++)
+			cols[i] = Color.gray;
+		for (int i = 3; i < cols.Length; i+=7)
+			cols[i] = Color.white;
+		for (int i = 0; i < inputs; i++)
+			cols[i * 2 * 7 + 7 + 1] = (states[index].x & (1 << i)) > 0 ? Color.yellow : Color.black;
+		for (int i = 0; i < outputs; i++)
+			cols[(i+1) * 2 * 7 - 2] = (states[index].y & (1 << i)) > 0 ? Color.yellow : Color.black;
+		tex.SetPixels(cols);
+		tex.filterMode = FilterMode.Point;
+		tex.wrapMode = TextureWrapMode.Clamp;
+		tex.Apply();
+		return Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), new Vector2(0.5f, 0.5f), 1, 1, SpriteMeshType.FullRect);
 	}
 }

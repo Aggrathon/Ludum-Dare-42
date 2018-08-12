@@ -40,17 +40,23 @@ public class MapEditor : Editor
 		{
 			switch (layout[i])
 			{
-				case 1:
+				case ComponentType.Wire:
+					colors[i] = Color.cyan;
+					break;
+				case ComponentType.Empty:
+					colors[i] = Color.white;
+					break;
+				case ComponentType.Unbuildable:
 					colors[i] = Color.black;
 					break;
-				case 2:
+				case ComponentType.Input:
 					colors[i] = Color.green;
 					break;
-				case 3:
+				case ComponentType.Output:
 					colors[i] = Color.red;
 					break;
 				default:
-					colors[i] = Color.white;
+					colors[i] = Color.blue;
 					break;
 			}
 		}

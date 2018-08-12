@@ -30,8 +30,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.9899495"
-     inkscape:cx="-18.677497"
-     inkscape:cy="273.43997"
+     inkscape:cx="154.05859"
+     inkscape:cy="204.7496"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -60,7 +60,7 @@
      id="layer1"
      transform="translate(0,-229.26668)">
     <path
-       style="fill:none;stroke:#ffffff;stroke-width:1.05833328;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;stroke:#ffffff;stroke-width:2.11666667;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m -68.791667,298.05835 69.8500003,-69.85"
        id="use5345"
        inkscape:connector-curvature="0"
@@ -78,7 +78,8 @@
        xlink:href="#use5345"
        id="use1123"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -87,7 +88,8 @@
        transform="translate(22.533778)"
        id="use1125"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -96,7 +98,8 @@
        transform="translate(45.067557)"
        id="use1127"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -105,7 +108,8 @@
        transform="translate(67.601335)"
        id="use1129"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -114,7 +118,8 @@
        transform="translate(90.135113)"
        id="use1131"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -123,7 +128,8 @@
        transform="translate(112.66889)"
        id="use1133"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -132,7 +138,8 @@
        transform="translate(135.20267)"
        id="use1135"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -141,7 +148,8 @@
        transform="translate(157.73645)"
        id="use1137"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -150,7 +158,8 @@
        transform="translate(180.27023)"
        id="use1139"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
     <use
        x="0"
        y="0"
@@ -159,6 +168,7 @@
        transform="translate(202.804)"
        id="use1141"
        width="100%"
-       height="100%" />
+       height="100%"
+       style="stroke-width:2.11666667;stroke-miterlimit:4;stroke-dasharray:none" />
   </g>
 </svg>
