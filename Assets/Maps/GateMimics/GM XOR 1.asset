@@ -9,17 +9,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 362c23561e0af1c4b91df8df1a6885ce, type: 3}
-  m_Name: GM OR 2
+  m_Name: GM XOR 1
   m_EditorClassIdentifier: 
-  title: 'Gate Mimics: Or by Nand'
+  title: 'Gate Mimics: The Xor Gate'
   width: 10
   height: 10
   inputs: 2
   outputs: 1
-  activeComponents: 33
+  activeComponents: 63
   states:
   - x: 3
-    y: 1
+    y: 0
   - x: 2
     y: 1
   - x: 1

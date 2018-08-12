@@ -9,6 +9,7 @@ public class Bridge : ACircuitComponent
 	public Color onColor = Color.yellow;
 	public Color offColor = Color.white;
 	bool power;
+	bool foundPower;
 	Circuit circuit;
 	CircuitTile tile;
 	Bridge other;
@@ -34,12 +35,28 @@ public class Bridge : ACircuitComponent
 	{
 		power = power | other.power;
 		status.color = power ? onColor : offColor;
+		power = false;
 	}
 
 	public override void PreTick()
 	{
-		if(power)
-			Spread();
+		if (!power)
+		{
+			CircuitTile t;
+			if (circuit.GetTileAt(tile.localPosition.RotatedStep(0), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
+				power = true;
+			if (!power && circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
+				power = true;
+			if (!power && circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
+				power = true;
+			if (!power && circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
+				power = true;
+			if (power)
+			{
+				Spread();
+				other.TrySetOn();
+			}
+		}
 	}
 
 	public override void Setup(Circuit circuit, CircuitTile tile)
@@ -73,19 +90,6 @@ public class Bridge : ACircuitComponent
 
 	public override void Tick()
 	{
-		if(power)
-		{
-			power = false;
-		}
-		CircuitTile t;
-		if (circuit.GetTileAt(tile.localPosition.RotatedStep(0), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
-			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(1), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
-			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(2), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
-			power = true;
-		else if (circuit.GetTileAt(tile.localPosition.RotatedStep(3), out t) && t.obj != null && t.obj.isOn(tile.localPosition))
-			power = true;
 	}
 
 	public override void TrySetOn()
@@ -94,6 +98,7 @@ public class Bridge : ACircuitComponent
 		{
 			power = true;
 			Spread();
+			other.TrySetOn();
 		}
 	}
 

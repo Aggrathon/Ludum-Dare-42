@@ -180,6 +180,8 @@ public class Circuit : MonoBehaviour {
 	{
 		if (!CheckLocalBounds(a) || !CheckLocalBounds(b))
 			return;
+		if (a == b)
+			return;
 		var source = circuit[LocalToIndex(a)];
 		var target = circuit[LocalToIndex(b)];
 		if ((target.component != ComponentType.Empty && target.component != ComponentType.Wire) || (source.component != ComponentType.Empty && source.component != ComponentType.Wire))

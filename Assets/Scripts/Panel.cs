@@ -98,6 +98,7 @@ public class Panel : MonoBehaviour {
 			gp.onLevelChanged.AddListener((_) => {
 				for (int k = 0; k < buildButtons.childCount; k++)
 					buildButtons.GetChild(k).gameObject.SetActive((gp.currentMap.activeComponents & (1 << k)) > 0);
+				SetBuildType((int)ComponentType.Empty);
 			});
 		}
 		if (stateButtons)

@@ -54,7 +54,9 @@ public class CircuitOutput : ACircuitComponent
 		bool power = false;
 		var pos = tile.localPosition.RotatedStep(tile.rotation+2);
 		if (circuit.GetTileAt(pos, out t) && t.obj != null)
+		{
 			power = t.obj.isOn(tile.localPosition);
+		}
 		if (power == prevPower && shouldPower == power)
 		{
 			counter++;
